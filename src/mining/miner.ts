@@ -58,7 +58,9 @@ class Miner {
         const candidate = this.template(mempool.txs)
         const res = await this.initWorker(candidate)
         logger.info(res)
-
+        
+        await objectManager.put(candidate)
+        // add to our chain and gossip
         
     }
 }
