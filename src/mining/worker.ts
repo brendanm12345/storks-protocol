@@ -1,8 +1,11 @@
-import { randomBytes } from "crypto"
-import { canonicalize } from "json-canonicalize"
-import { Block } from "../block"
-import { hash } from "../crypto/hash"
-import { logger } from "../logger"
+//export type ObjectId = string
+const { randomBytes } = require('crypto');
+const { canonicalize } = require("json-canonicalize")
+const { Block } = require("../block")
+const { hash } = require("../crypto/hash")
+//import { hash } from "../crypto/hash"
+const { logger } = require("../logger")
+// const { ObjectId } = require("../object")
 
 const { candidate, parentPort } = require('worker_threads')
 
@@ -11,7 +14,7 @@ const TARGET2X = '00000001578000000000000000000000000000000000000000000000000000
 
 parentPort.postMessage(checkPow(candidate))
 
-function checkPow(candidate: any) {
+async function checkPow(candidate: any) {
     // pick a random nonce
     const nonceSize = 8;
     

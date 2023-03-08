@@ -3,7 +3,7 @@ import { mempool } from "../mempool";
 import { Transaction } from "../transaction";
 import { chainManager } from "../chain";
 import { hash } from '../crypto/hash'
-import { objectManager } from "../object";
+import { ObjectId, objectManager } from "../object";
 import { logger } from "../logger";
 
 const { Worker } = require('worker_threads')
@@ -18,7 +18,7 @@ class Miner {
         this.worker = null
     }
 
-    template(x: Transaction[]) {
+    template(x: ObjectId[]) {
         const template =
         {
             T: TARGET,
@@ -33,11 +33,11 @@ class Miner {
         }
         return template;
     }
-    initWorker(candidate: { T: string; created: number; miner: string; nonce: string; note: string; previd: string; txids: Transaction[]; type: string; }) {
+    async initWorker(candidate: { T: string; created: number; miner: string; nonce: string; note: string; previd: string; txids: string[]; type: string; }) {
         return new Promise((resolve, reject) => {
             // import worker.ts script...
             // how to overwrite or terminate previous one?
-            this.worker = new Worker('./worker.ts', { candidate })
+            this.worker = new Worker('./src/mining/worker.ts', { candidate })
             //const temp = new Worker('./worker.ts', { candidate })
             // for now on later once
             (this.worker as any).on("message", (result: any) => {
@@ -49,15 +49,18 @@ class Miner {
                 if (code !== 0)
                     reject(new Error(`stopped with  ${code} exit code`));
             })
-
         })
+    }
+    async run (candidate: any) {
+        return await this.initWorker(candidate)
+        // console.log(result);
     }
     async sendNewWork() {
         // potential bug
         this.worker?.terminate()
-        const candidate = this.template(mempool.txs)
-        const res = await this.initWorker(candidate)
-        logger.info(res)
+        const candidate = this.template(mempool.getTxIds())
+        const res = this.run(candidate).catch(err => logger.info(err));
+        logger.info("RES", res)
         
         await objectManager.put(candidate)
         // add to our chain and gossip
