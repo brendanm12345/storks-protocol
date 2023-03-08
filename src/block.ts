@@ -386,4 +386,10 @@ export class Block {
     this.stateAfter = new UTXOSet(new Set<string>(stateAfterOutpoints))
     this.valid = true
   }
+  // dont need this stuff prob
+  // // call this on "getwork" from miner
+  // async mine() {
+  //   // mine "this" (block candidate which is the template filled with mempool txs)
+  //   // send 
+  // }
 }

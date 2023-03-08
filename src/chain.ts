@@ -1,7 +1,9 @@
+import { minVersion } from "semver";
 import { Block } from "./block";
 import { logger } from "./logger";
 import { mempool } from "./mempool";
 import { db } from "./object";
+import { miner } from "./mining/miner"
 
 class ChainManager {
   longestChainHeight: number = 0
@@ -26,6 +28,9 @@ class ChainManager {
       await this.save()
     }
     logger.debug(`Chain manager initialized.`)
+    // HERE initialize new miner (worker thread)
+    miner.sendNewWork()
+      // block method that makes a new template
   }
   async save() {
     await db.put('longestchain', [this.longestChainTip, this.longestChainHeight])
@@ -57,6 +62,10 @@ class ChainManager {
       await mempool.reorg(lca, shortFork, longFork)
       await this.save()
     }
+    // HERE send miner new work
+    // dont we just send it mempool? or do we just say miner.checkNewWork and that accesses the mempool?
+    // prob need chaintip as parameter here huh
+    miner.sendNewWork()
   }
 }
 

@@ -67,6 +67,7 @@ class MemPool {
     logger.debug(`Added transaction ${tx.txid} to mempool`)
     this.txs.push(tx)
     await this.save()
+    // HERE send new work with new x bar
     return true
   }
   async reorg(lca: Block, shortFork: Chain, longFork: Chain) {

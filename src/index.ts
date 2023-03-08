@@ -8,7 +8,7 @@ const BIND_PORT = 18018
 const BIND_IP = '0.0.0.0'
 
 logger.info(`Malibu - A Marabu node`)
-logger.info(`Dionysis Zindros <dionyziz@stanford.edu>`)
+logger.info(`Brendan McLaughlin & James Stevens`)
 
 async function main() {
   await chainManager.init()
