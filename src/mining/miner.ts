@@ -55,11 +55,13 @@ class Miner {
     async sendNewWork() {
         // potential bug
         this.worker?.terminate()
+        console.log('Mining new block')
         const candidate = this.template(mempool.txs)
         const res = await this.initWorker(candidate)
         logger.info(res)
         
         await objectManager.put(candidate)
+        console.log('Added our mined block to the chain')
         // add to our chain and gossip
         
     }
