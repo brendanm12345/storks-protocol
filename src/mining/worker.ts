@@ -1,3 +1,4 @@
+import { randomBytes } from "crypto"
 import { canonicalize } from "json-canonicalize"
 import { Block } from "../block"
 import { hash } from "../crypto/hash"
@@ -12,24 +13,30 @@ const TARGET = '00000000abc00000000000000000000000000000000000000000000000000000
 
 // for loop to increment nonce and see if it satisfies PoW for
 
-parentPort.postMessage(checkPow(candidate))
+parentPort.postMessage(await checkPow(candidate))
 
-function checkPow(candidate: any) {
+async function checkPow(candidate: any) {
     // pick a random nonce
+    const nonceSize = 8;
+    
+    let nonce = randomBytes(nonceSize).readUIntLE(0, nonceSize)
+    candidate.nonce = nonce
+    const candidateId = hash(canonicalize(candidate))
     // put that nonce in the candidate nonce field
     // hash the updated candidate
     // make a loop to increment nonce
+    while (true) {
         // if it doesn't satisfy PoW, increment nonce
-        const candidateId = hash(canonicalize(candidate.toNetworkObject()))
-        if  (BigInt(`0x${candidateId}`) >= BigInt(`0x${TARGET}`)) {
+        if (BigInt(`0x${candidateId}`) > BigInt(`0x${TARGET}`)) {
             // increment nonce
-
         }
         // if it satisfies
         else {
             // found one! return the candidate
             return candidate
         }
+    }
+
 }
 
 

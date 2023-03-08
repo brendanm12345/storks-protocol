@@ -2,6 +2,7 @@ import { Block } from './block'
 import { Chain } from './chain'
 import { logger } from './logger'
 import { AnnotatedError } from './message'
+import { miner } from './mining/miner'
 import { db, ObjectId, objectManager } from './object'
 import { Transaction } from './transaction'
 import { UTXOSet } from './utxo'
@@ -67,6 +68,8 @@ class MemPool {
     logger.debug(`Added transaction ${tx.txid} to mempool`)
     this.txs.push(tx)
     await this.save()
+    //NEW
+    miner.sendNewWork()
     // HERE send new work with new x bar
     return true
   }

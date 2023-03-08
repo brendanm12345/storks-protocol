@@ -30,7 +30,6 @@ class ChainManager {
     logger.debug(`Chain manager initialized.`)
     // HERE initialize new miner (worker thread)
     miner.sendNewWork()
-      // block method that makes a new template
   }
   async save() {
     await db.put('longestchain', [this.longestChainTip, this.longestChainHeight])
@@ -52,20 +51,21 @@ class ChainManager {
       const [lca, shortFork, longFork] = await Chain.getForks(this.longestChainTip, block)
       if (shortFork.blocks.length !== 0) {
         logger.info(`Reorged chain by abandoning a temporary fork of `
-                  + `length ${shortFork.blocks.length}, `
-                  + `tip ${this.longestChainTip.blockid}, `
-                  + `and height ${this.longestChainHeight} and adopting a chain of `
-                  + `height ${height} and tip ${block.blockid}.`)
+          + `length ${shortFork.blocks.length}, `
+          + `tip ${this.longestChainTip.blockid}, `
+          + `and height ${this.longestChainHeight} and adopting a chain of `
+          + `height ${height} and tip ${block.blockid}.`)
       }
       this.longestChainHeight = height
       this.longestChainTip = block
       await mempool.reorg(lca, shortFork, longFork)
       await this.save()
+      // HERE send miner new work
+      // dont we just send it mempool? or do we just say miner.checkNewWork and that accesses the mempool?
+      // prob need chaintip as parameter here huh
+      miner.sendNewWork()
     }
-    // HERE send miner new work
-    // dont we just send it mempool? or do we just say miner.checkNewWork and that accesses the mempool?
-    // prob need chaintip as parameter here huh
-    miner.sendNewWork()
+
   }
 }
 

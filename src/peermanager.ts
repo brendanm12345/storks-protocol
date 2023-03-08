@@ -2,7 +2,8 @@ import { db } from './object'
 import { logger } from './logger'
 import isValidHostname from 'is-valid-hostname'
 
-const BOOTSTRAP_PEERS: string[] = ['45.63.84.226:18018', '45.63.89.228:18018', '144.202.122.8:18018']
+// const BOOTSTRAP_PEERS: string[] = ['45.63.84.226:18018', '45.63.89.228:18018', '144.202.122.8:18018']
+const BOOTSTRAP_PEERS: string[] = []
 
 class PeerManager {
   knownPeers: Set<string> = new Set()
