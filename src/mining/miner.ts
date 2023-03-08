@@ -8,7 +8,6 @@ import { logger } from "../logger";
 
 const { Worker } = require('worker_threads')
 
-
 // write the block template logic
 const TARGET = '00000000abc00000000000000000000000000000000000000000000000000000'
 
@@ -54,13 +53,12 @@ class Miner {
         })
     }
     async sendNewWork() {
-        // invoke a template making function and pass in 
         // potential bug
         this.worker?.terminate()
         const candidate = this.template(mempool.txs)
         const res = await this.initWorker(candidate)
         logger.info(res)
-        
+
         
     }
 }
