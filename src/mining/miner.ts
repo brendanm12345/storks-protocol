@@ -61,6 +61,8 @@ class Miner {
         const res = await this.initWorker(candidate)
         logger.info(res)
         
+        await objectManager.put(candidate)
+        // add to our chain and gossip
         
     }
 }
