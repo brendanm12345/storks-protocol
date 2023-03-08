@@ -1,5 +1,38 @@
 // hello
 {"type": "hello","version": "0.9.0","agent": "Marabu-Core Client 0.9"}
+//______________
+
+
+//genesis block
+// ihaveobject for genesis
+{"type": "ihaveobject","objectid": "ef92a72653aedac9f9c95fa3c5cdcd38095b9144cc6d891473c3b1f48dcc8747"}
+// genesis
+{"type":"object","object":{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 1671062400,"miner": "Marabu","nonce": "000000000000000000000000000000000000000000000000000000021bea03ed","note": "The New York Times 2022-12-13: Scientists Achieve Nuclear Fusion Breakthrough With Blast of 192 Lasers","previd": null,"txids": [],"type": "block"}}
+
+
+// first block
+//
+{"type": "ihaveobject","objectid": "2ae6d7a7ccc3413a375bb81576e7e01e77609d29ca4c03cb6008aea7c16627e9"}
+{"T":"00000000abc00000000000000000000000000000000000000000000000000000","created":1671064883,"miner":"grader","nonce":"5f8592e30a2205a485846248987550aaf2094ec59e7931dc650c74523db9d21d","note":"First block","previd":"0000000052a0e645eca917ae1c196e0d0a4fb756747f29ef52594d68484bb5e2","txids":["02645e3b1f5b4cdd665cca185933c6dc60c30f72d457f2d61caa0f5401fa40cd"],"type":"block"},"type":"object"}
+
+// second block
+//
+{"type": "ihaveobject","objectid": "dc50e4856243ca0f9509bf3bdbe3cc69ffa4f24eb763c2af915168f4529b31bc"}
+{"T":"00000000abc00000000000000000000000000000000000000000000000000000","created":1671127728,"miner":"grader","nonce":"5f8592e30a2205a485846248987550aaf2094ec59e7931dc650c74524102d722","note":"Second block","previd":"00000000a4636e3620fe684395bb4af54c4f0d6c545731ad47a26bc38a9d3a33","txids":["4b4f9b3bcd3f03632104174facd43a64e2cb3573b4de8d445e5056207fe8ed6c"],"type":"block"},"type":"object"}
+
+
+
+//_____________
+
+
+
+
+
+
+
+
+
+
 
 
 

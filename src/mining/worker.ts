@@ -14,7 +14,7 @@ const TARGET2X = '00000001578000000000000000000000000000000000000000000000000000
 
 parentPort.postMessage(checkPow(candidate))
 
-async function checkPow(candidate: any) {
+async function checkPow(candidate: any): Promise<any>{
     // pick a random nonce
     const nonceSize = 8;
     

@@ -33,7 +33,7 @@ class Miner {
         }
         return template;
     }
-    async initWorker(candidate: { T: string; created: number; miner: string; nonce: string; note: string; previd: string; txids: string[]; type: string; }) {
+    async initWorker(candidate: any): Promise<any>{
         return new Promise((resolve, reject) => {
             // import worker.ts script...
             // how to overwrite or terminate previous one?
