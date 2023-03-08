@@ -61,8 +61,10 @@ class Miner {
         const candidate = this.template(mempool.getTxIds())
         const res = this.run(candidate).catch(err => logger.info(err));
         logger.info("RES", res)
-        
+        console.log('Mining new block')
+
         await objectManager.put(candidate)
+        console.log('Added our mined block to the chain')
         // add to our chain and gossip
         
     }

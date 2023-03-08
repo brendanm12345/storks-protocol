@@ -1,0 +1,66 @@
+// hello
+{"type": "hello","version": "0.9.0","agent": "Marabu-Core Client 0.9"}
+
+
+
+// VALID TX
+
+{"type": "ihaveobject","objectid": "b303d841891f91af118a319f99f5984def51091166ac73c062c98f86ea7371ee"}
+// obj
+{"type":"object","object":{"height":0,"outputs":[{"pubkey":"958f8add086cc348e229a3b6590c71b7d7754e42134a127a50648bf07969d9a0","value":50000000000}],"type":"transaction"}}
+
+// INVALID TX
+
+// i have object
+{"type": "ihaveobject","objectid": "629f8fd3ace479464f3eb3a20f78e242a9ed4472cb739c1a09f9eb8f67364a73"}
+// tx with inputs that have same outpoints
+{"type":"object","object":{"type": "transaction","inputs": [{"outpoint": {"txid": "f71408bf847d7dd15824574a7cd4afdfaaa2866286910675cd3fc371507aa196","index": 0},"sig": "3869a9ea9e7ed926a7c8b30fb71f6ed151a132b03fd5dae764f015c98271000e7da322dbcfc97af7931c23c0fae060e102446ccff0f54ec00f9978f3a69a6f0f"},{"outpoint": {"txid": "f71408bf847d7dd15824574a7cd4afdfaaa2866286910675cd3fc371507aa196","index": 1},"sig": "3869a9ea9e7ed926a7c8b30fb71f6ed151a132b03fd5dae764f015c98271000e7da322dbcfc97af7931c23c0fae060e102446ccff0f54ec00f9978f3a69a6f0f"}],"outputs": [{"pubkey": "077a2683d776a71139fd4db4d00c16703ba0753fc8bdc4bd6fc56614e659cde3","value": 5100000000}]}}
+
+
+// get chain tip
+{"type": "getchaintip"}
+
+// ihaveobject for first block
+{"type": "ihaveobject","objectid": "4552b3c3d745aaaa38eb2fea998bd836932b2c7861f3b9295fcc00b155f2a728"}
+// block
+{"type":"object","object":{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 1671148800,"miner": "Marabu Bounty Hunter","nonce": "15551b5116783ace79cf19d95cca707a94f48e4cc69f3db32f41081dab3e6641","note": "First block on genesis, 50 bu reward","previd": "0000000052a0e645eca917ae1c196e0d0a4fb756747f29ef52594d68484bb5e2","txids": ["8265faf623dfbcb17528fcd2e67fdf78de791ed4c7c60480e8cd21c6cdc8bcd4"],"type": "block"}}
+// expected: none
+
+// Testing with wrong miner and notoe
+{"type": "ihaveobject","objectid": "8d1824a3e7550b1c78c7c3a4ad3a83805c3fffad72026ec8439ef99696ddbb1b"}
+// block
+{"type":"object","object":{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 1671148800,"miner": "भारत ","nonce": "15551b5116783ace79cf19d95cca707a94f48e4cc69f3db32f41081dab3e6641","note": "First block on genesis, 50 bu reward","previd": "0000000052a0e645eca917ae1c196e0d0a4fb756747f29ef52594d68484bb5e2","txids": ["8265faf623dfbcb17528fcd2e67fdf78de791ed4c7c60480e8cd21c6cdc8bcd4"],"type": "block"}}
+// expected: none
+
+
+// hashed with invalid date
+{"type": "ihaveobject","objectid": "a4d1e20be24c125680bf10f9e68d473a09b828b5c882c737b0d2848f95a5fd58"}
+// block
+{"type":"object","object":{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 1071148800,"miner": "Marabu Bounty Hunter","nonce": "15551b5116783ace79cf19d95cca707a94f48e4cc69f3db32f41081dab3e6641","note": "First block on genesis, 50 bu reward","previd": "0000000052a0e645eca917ae1c196e0d0a4fb756747f29ef52594d68484bb5e2","txids": ["8265faf623dfbcb17528fcd2e67fdf78de791ed4c7c60480e8cd21c6cdc8bcd4"],"type": "block"}}
+// outcome: INVALID_BLOCK_POW
+
+// ihaveobject for genesis
+{"type": "ihaveobject","objectid": "ef92a72653aedac9f9c95fa3c5cdcd38095b9144cc6d891473c3b1f48dcc8747"}
+// genesis
+{"type":"object","object":{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 1671062400,"miner": "Marabu","nonce": "000000000000000000000000000000000000000000000000000000021bea03ed","note": "The New York Times 2022-12-13: Scientists Achieve Nuclear Fusion Breakthrough With Blast of 192 Lasers","previd": null,"txids": [],"type": "block"}}
+
+
+{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 1671062400,"miner": "Marabu","nonce": "000000000000000000000000000000000000000000000000000000021bea03ed","note": "The New York Times 2022-12-13: Scientists Achieve Nuclear Fusion Breakthrough With Blast of 192 Lasers","previd": null,"txids": [],"type": "block"}
+
+
+// tx
+
+// valid
+
+{"type": "ihaveobject","objectid": "b303d841891f91af118a319f99f5984def51091166ac73c062c98f86ea7371ee"}
+
+{"type":"object","object":{"height":0,"outputs":[{"pubkey":"958f8add086cc348e229a3b6590c71b7d7754e42134a127a50648bf07969d9a0","value":50000000000}],"type":"transaction"}}
+
+
+
+// invalid
+{"type": "ihaveobject","objectid": "5e6e6325a9323fa86c353fff97b748db3fad58024ec36f7ca218c594debdb363"}
+
+{"inputs":[{"outpoint":{"index":0,"txid":"b303d841891f91af118a319f99f5984def51091166ac73c062c98f86ea7371ee"},"sig":"060bf7cbe141fecfebf6dafbd6ebbcff25f82e729a7770f4f3b1f81a7ec8a0ce4b287597e609b822111bbe1a83d682ef14f018f8a9143cef25ecc9a8b0c1c405"}],"outputs":[{"pubkey":"958f8add086cc348e229a3b6590c71b7d7754e42134a127a50648bf07969d9a0","value":10}],"type":"transaction"}
+
+{"type": "transaction","inputs": [{"outpoint": {"txid": "f71408bf847d7dd15824574a7cd4afdfaaa2866286910675cd3fc371507aa196","index": 0},"sig": "3869a9ea9e7ed926a7c8b30fb71f6ed151a132b03fd5dae764f015c98271000e7da322dbcfc97af7931c23c0fae060e102446ccff0f54ec00f9978f3a69a6f0f"}],"outputs": [{"pubkey": "077a2683d776a71139fd4db4d00c16703ba0753fc8bdc4bd6fc56614e659cde3","value": 5100000000}]}
