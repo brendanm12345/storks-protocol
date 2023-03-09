@@ -40,12 +40,19 @@ class Network {
       }
     }
   }
-  broadcast(obj: object) {
+  broadcast(obj: object, wrapper = false) {
+    let result = obj;
+    if (wrapper == true) {
+      result = {
+        object: obj,
+        type: "object",
+      }
+    }
     logger.info(`Broadcasting object to all peers: %o`, obj)
 
     for (const peer of this.peers) {
       if (peer.active) {
-        peer.sendMessage(obj) // intentionally delayed
+        peer.sendMessage(result) // intentionally delayed
       }
     }
   }

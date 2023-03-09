@@ -1,5 +1,6 @@
 import * as ed from '@noble/ed25519'
 
+// ed.gen pk sk (also on ed)
 export type PublicKey = string
 export type Signature = string
 

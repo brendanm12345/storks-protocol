@@ -29,7 +29,7 @@ class ChainManager {
     }
     logger.debug(`Chain manager initialized.`)
     // HERE initialize new miner (worker thread)
-    miner.sendNewWork()
+    // miner.sendNewWork()
   }
   async save() {
     await db.put('longestchain', [this.longestChainTip, this.longestChainHeight])
