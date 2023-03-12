@@ -39,20 +39,14 @@ class MemPool {
   async load() {
     try {
       const txids = await db.get('mempool:txids')
-      logger.debug(`Retrieved cached mempool: ${txids}.`)
-      this.fromTxIds(txids)
-    }
-    catch {
-      // start with an empty mempool of no transactions
-    }
-    try {
-      logger.debug(`Loading mempool state from cache`)
+      await this.fromTxIds(txids)
+      logger.debug(`${this.txs.length} transactions loaded from cache!`)
+
       const outpoints = await db.get('mempool:state')
-      logger.debug(`Outpoints loaded from cache: ${outpoints}`)
+      logger.debug(`${outpoints.length} outpoints loaded from cache!`)
       this.state = new UTXOSet(new Set<string>(outpoints))
-    }
+    } 
     catch {
-      // start with an empty state
       this.txs = []
       this.state = new UTXOSet(new Set())
       await this.save()

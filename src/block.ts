@@ -130,7 +130,6 @@ export class Block {
     if (this.miner !== undefined) {
       netObj.miner = this.miner
     }
-
     if (this.note !== undefined) {
       netObj.note = this.note
     }
@@ -265,8 +264,9 @@ export class Block {
         await parentBlock.validate(peer)
       }
     }
+    // CHANGED
     catch (e: any) {
-      throw new AnnotatedError('UNFINDABLE_OBJECT', `Retrieval of block parent for block ${this.blockid} failed; rejecting block: ${e.message}`)
+      throw new AnnotatedError('UNFINDABLE_OBJECT', `block parent ${this.blockid} failed`)
     }
     return parentBlock
   }

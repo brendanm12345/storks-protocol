@@ -29,11 +29,12 @@ class Miner {
         const template =
         {
             T: TARGET,
-            created: 0,
+            // just changed
+            created: Math.floor(new Date().getTime() / 1000),
             miner: 'Marabu',
             nonce: nonce,
             note: '',
-            previd: objectManager.id(chainManager.longestChainTip),
+            previd: objectManager.id(chainManager.longestChainTip?.toNetworkObject()),
             txids: x,
             type: 'block',
             studentids: ['bmc0407', 'jsteve1']
@@ -88,23 +89,25 @@ class Miner {
         // })
         // mempool.onTransactionArrival(coinbase)
 
-        await delay(5000)
-        network.broadcast(result.block, true)
-        console.log('Added our mined block to the chain')
+        // await delay(5000)
+        if (result.block !== undefined) {
+            network.broadcast(result.block, true)
+        }
+        // console.log('Added our mined block to the chain')
 
         async function writeBlockToFile(obj: object, filename: string): Promise<void> {
             try {
-              const data = JSON.stringify(obj, null, 2) + "\n"; // Convert object to a pretty printed JSON string
-              await fs.appendFile(filename, data);
-              console.log(`Data written to ${filename}`);
+                const data = JSON.stringify(obj, null, 2) + "\n"; // Convert object to a pretty printed JSON string
+                await fs.appendFile(filename, data);
+                console.log(`Data written to ${filename}`);
             } catch (error) {
-              console.error(`Error writing to ${filename}: ${error}`);
+                console.error(`Error writing to ${filename}: ${error}`);
             }
-          }
-          
-          var filename = 'minedblocks.txt';
-          writeBlockToFile(result.block, filename);
-          
+        }
+
+        var filename = 'minedblocks.txt';
+        writeBlockToFile(result.block, filename);
+
         // add to our chain and gossip
         // const final_tx = (
         //     {

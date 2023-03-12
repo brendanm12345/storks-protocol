@@ -4,7 +4,7 @@
 
 {"type": "getchaintip"}
 
-{"type":"mempool"}
+{"type":"getmempool"}
 
 //genesis block
 // ihaveobject for genesis

@@ -1,19 +1,6 @@
-
 undefined
 undefined
 undefined
 undefined
-{
-  "T": "00000000abc00000000000000000000000000000000000000000000000000000",
-  "created": 0,
-  "miner": "Marabu",
-  "nonce": "4f7983e2ec80102e3b3788086a08c0ad1956d75a3dfc16291756b014d6f15316",
-  "note": "",
-  "previd": "5dd416e03e977be303de0e6512b1d03c2f1c7574ac5f4696c7bd469e9bf18384",
-  "txids": [],
-  "type": "block",
-  "studentids": [
-    "bmc0407",
-    "jsteve1"
-  ]
-}
+undefined
+undefined

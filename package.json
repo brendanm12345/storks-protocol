@@ -24,6 +24,7 @@
     "node-fetch": "^2.6.8",
     "runtypes": "^6.5.1",
     "semver": "^7.3.5",
+    "tmux": "^1.0.0",
     "ts-node": "^10.9.1",
     "winston": "^3.6.0"
   },
