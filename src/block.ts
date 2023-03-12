@@ -1,5 +1,7 @@
-import { BlockObject, BlockObjectType,
-         TransactionObject, ObjectType, AnnotatedError, ErrorChoice } from './message'
+import {
+  BlockObject, BlockObjectType,
+  TransactionObject, ObjectType, AnnotatedError, ErrorChoice
+} from './message'
 import { hash } from './crypto/hash'
 import { canonicalize } from 'json-canonicalize'
 import { Peer } from './peer'
@@ -22,7 +24,7 @@ const GENESIS: BlockObjectType = {
   txids: [],
   type: 'block'
 }
-const BU = 10**12
+const BU = 10 ** 12
 const BLOCK_REWARD = 50 * BU
 
 export class BlockManager {
@@ -74,7 +76,7 @@ export class Block {
     try {
       await b.load()
     }
-    catch {} // block metadata not cached
+    catch { } // block metadata not cached
     return b
   }
   constructor(
@@ -98,7 +100,7 @@ export class Block {
     this.blockid = hash(canonicalize(this.toNetworkObject()))
   }
   async getCoinbase(): Promise<Transaction> {
-    if (this.txids.length === 0)  {
+    if (this.txids.length === 0) {
       throw new Error('The block has no coinbase transaction')
     }
     const txid = this.txids[0]
@@ -124,7 +126,9 @@ export class Block {
       nonce: this.nonce,
       T: this.T,
       created: this.created,
-      miner: this.miner,
+    }
+    if (this.miner !== undefined) {
+      netObj.miner = this.miner
     }
 
     if (this.note !== undefined) {
@@ -199,16 +203,16 @@ export class Block {
     try {
       coinbase = await this.getCoinbase()
     }
-    catch (e) {}
+    catch (e) { }
 
     if (coinbase !== undefined) {
       if (coinbase.outputs[0].value > BLOCK_REWARD + fees) {
-        throw new AnnotatedError('INVALID_BLOCK_COINBASE',`Coinbase transaction does not respect macroeconomic policy. `
-                      + `Coinbase output was ${coinbase.outputs[0].value}, while reward is ${BLOCK_REWARD} and fees were ${fees}.`)
+        throw new AnnotatedError('INVALID_BLOCK_COINBASE', `Coinbase transaction does not respect macroeconomic policy. `
+          + `Coinbase output was ${coinbase.outputs[0].value}, while reward is ${BLOCK_REWARD} and fees were ${fees}.`)
       }
       if (coinbase.height !== height) {
         throw new AnnotatedError('INVALID_BLOCK_COINBASE', `Coinbase transaction ${coinbase.txid} of block ${this.blockid} indicates height ${coinbase.height}, `
-                      + `while the block has height ${height}.`)
+          + `while the block has height ${height}.`)
       }
     }
 
@@ -320,12 +324,12 @@ export class Block {
 
         if (parentBlock.created >= this.created) {
           throw new AnnotatedError('INVALID_BLOCK_TIMESTAMP', `Parent block ${parentBlock.blockid} created at ${parentBlock.created} has future timestamp of `
-                        + `block ${this.blockid} created at ${this.created}.`)
+            + `block ${this.blockid} created at ${this.created}.`)
         }
         const currentUNIXtimestamp = Math.floor(new Date().getTime() / 1000)
         if (this.created > currentUNIXtimestamp) {
           throw new AnnotatedError('INVALID_BLOCK_TIMESTAMP', `Block ${this.blockid} has a timestamp ${this.created} in the future. `
-                        + `Current time is ${currentUNIXtimestamp}.`)
+            + `Current time is ${currentUNIXtimestamp}.`)
         }
 
         this.height = parentHeight + 1
@@ -339,7 +343,7 @@ export class Block {
 
       if (stateBefore === undefined) {
         throw new AnnotatedError('UNFINDABLE_OBJECT', `We have not calculated the state of the parent block,`
-                      + `so we cannot calculate the state of the current block with blockid = ${this.blockid}`)
+          + `so we cannot calculate the state of the current block with blockid = ${this.blockid}`)
       }
 
       logger.debug(`State before block ${this.blockid} is ${stateBefore}`)
@@ -351,7 +355,7 @@ export class Block {
       try {
         await this.save()
         await chainManager.onValidBlockArrival(this)
-      } 
+      }
       catch (e: any) {
         throw new AnnotatedError('INTERNAL_ERROR', 'Something went wrong is block saving or state calculations.')
       }

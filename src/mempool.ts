@@ -53,11 +53,16 @@ class MemPool {
     }
     catch {
       // start with an empty state
+      this.txs = []
       this.state = new UTXOSet(new Set())
+      await this.save()
     }
   }
   async onTransactionArrival(tx: Transaction): Promise<boolean> {
     try {
+      if (tx.isCoinbase()) {
+        throw new Error('coinbase cannot be added to mempool')
+      }
       await this.state?.apply(tx)
     }
     catch (e: any) {
@@ -102,6 +107,7 @@ class MemPool {
         ++successes
       }
     }
+    await this.save()
     logger.info(`Re-applied ${successes} transaction(s) to mempool.`)
     logger.info(`${successes - orphanedTxs.length} transactions were abandoned.`)
     logger.info(`Mempool reorg completed.`)

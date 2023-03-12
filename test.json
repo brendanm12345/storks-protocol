@@ -100,3 +100,8 @@
 {"inputs":[{"outpoint":{"index":0,"txid":"b303d841891f91af118a319f99f5984def51091166ac73c062c98f86ea7371ee"},"sig":"060bf7cbe141fecfebf6dafbd6ebbcff25f82e729a7770f4f3b1f81a7ec8a0ce4b287597e609b822111bbe1a83d682ef14f018f8a9143cef25ecc9a8b0c1c405"}],"outputs":[{"pubkey":"958f8add086cc348e229a3b6590c71b7d7754e42134a127a50648bf07969d9a0","value":10}],"type":"transaction"}
 
 {"type": "transaction","inputs": [{"outpoint": {"txid": "f71408bf847d7dd15824574a7cd4afdfaaa2866286910675cd3fc371507aa196","index": 0},"sig": "3869a9ea9e7ed926a7c8b30fb71f6ed151a132b03fd5dae764f015c98271000e7da322dbcfc97af7931c23c0fae060e102446ccff0f54ec00f9978f3a69a6f0f"}],"outputs": [{"pubkey": "077a2683d776a71139fd4db4d00c16703ba0753fc8bdc4bd6fc56614e659cde3","value": 5100000000}]}
+
+
+
+MINED BLOCK
+{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 0,"miner": "Marabu","nonce": "4f7983e2ec80102e3b3788086a08c0ad1956d75a3dfc16291756b014d6f15316","note": "","previd": "5dd416e03e977be303de0e6512b1d03c2f1c7574ac5f4696c7bd469e9bf18384","txids": [],"type": "block","studentids": ["bmc0407","jsteve1"]}
