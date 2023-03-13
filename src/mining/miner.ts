@@ -29,11 +29,10 @@ class Miner {
         const template =
         {
             T: TARGET,
-            // just changed
             created: Math.floor(new Date().getTime() / 1000),
-            miner: 'Marabu',
+            miner: 'Storks Protocol',
             nonce: nonce,
-            note: '',
+            note: 'The underdogs have arrived',
             previd: objectManager.id(chainManager.longestChainTip?.toNetworkObject()),
             txids: x,
             type: 'block',
