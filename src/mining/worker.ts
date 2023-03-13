@@ -45,10 +45,12 @@ async function run() {
             //workerData.nonce = "15551b5116783ace79cf19d95cca707a94f48e4cc69f3db32f41081dab3e6641"
             console.log("CNADIDAT", workerData.nonce)
             console.log("mining...")
+            
             while (true) {
                 const blockId = hash(canonicalize(workerData))
-                if (BigInt(`0x${blockId}`) <= BigInt(`0x${TARGET}`)) {
+                if (BigInt(`0x${blockId}`) <= BigInt(`0x${TARGET100X}`)) {
                     // if it satisfies
+                    logger.info(hash(canonicalize(workerData)))
                     logger.info("GOT ONE")
                     return workerData
                 }

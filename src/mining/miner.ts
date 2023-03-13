@@ -10,11 +10,14 @@ import { network } from "../network";
 import { delay } from "../promise";
 const { getRandomValues } = require('crypto');
 import { promises as fs } from 'fs'
+import { canonicalize } from "json-canonicalize";
 
 const { Worker } = require('worker_threads')
 
 // write the block template logic
 const TARGET = '00000000abc00000000000000000000000000000000000000000000000000000'
+const TARGET100X = '0000001770100000000000000000000000000000000000000000000000000000'
+const TARGET1000X = '000001174A8000000000000000000000000000000000000000000000000000000'
 
 class Miner {
     worker: Worker | null
@@ -28,7 +31,7 @@ class Miner {
     template(x: ObjectId[], nonce: string) {
         const template =
         {
-            T: TARGET,
+            T: TARGET100X,
             created: Math.floor(new Date().getTime() / 1000),
             miner: 'Storks Protocol',
             nonce: nonce,
@@ -96,7 +99,7 @@ class Miner {
 
         async function writeBlockToFile(obj: object, filename: string): Promise<void> {
             try {
-                const data = JSON.stringify(obj, null, 2) + "\n"; // Convert object to a pretty printed JSON string
+                const data = JSON.stringify(obj, null, 2) + "\n" + hash(canonicalize(obj)) + "\n"; // Convert object to a pretty printed JSON string
                 await fs.appendFile(filename, data);
                 console.log(`Data written to ${filename}`);
             } catch (error) {

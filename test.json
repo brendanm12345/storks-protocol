@@ -6,9 +6,11 @@
 
 {"type":"getmempool"}
 
+{"type":"getobject"}
+
 //genesis block
 // ihaveobject for genesis
-{"type": "ihaveobject","objectid": "ef92a72653aedac9f9c95fa3c5cdcd38095b9144cc6d891473c3b1f48dcc8747"}
+{"type":"ihaveobject","objectid":"ef92a72653aedac9f9c95fa3c5cdcd38095b9144cc6d891473c3b1f48dcc8747"}
 // genesis
 {"type":"object","object":{"T": "00000000abc00000000000000000000000000000000000000000000000000000","created": 1671062400,"miner": "Marabu","nonce": "000000000000000000000000000000000000000000000000000000021bea03ed","note": "The New York Times 2022-12-13: Scientists Achieve Nuclear Fusion Breakthrough With Blast of 192 Lasers","previd": null,"txids": [],"type": "block"}}
 
@@ -108,3 +110,19 @@ MINED BLOCK
 
 
 {"T":"00000000abc00000000000000000000000000000000000000000000000000000","created": 1678669443,"miner": "Marabu","nonce":"bb65f0502b0768affe0aaae3f3c8d884d2c1ae805c4147857948566c66d8dc49","note":"","previd":"000000005eeb49dd0f67995355318afa526f3a84e2d43372485750058b609768","txids":["28caff245f16028e1f9bab783c7ea45abcec3ed13161ee6d035fb69535126764"],"type":"block","studentids":["bmc0407","jsteve1"]}
+
+
+{"type":"object","object":{"T":"00000000abc00000000000000000000000000000000000000000000000000000","created": 1678669443,"miner": "Marabu","nonce":"bb65f0502b0768affe0aaae3f3c8d884d2c1ae805c4147857948566c66d8dc49","note":"","previd":"000000005eeb49dd0f67995355318afa526f3a84e2d43372485750058b609768","txids":["28caff245f16028e1f9bab783c7ea45abcec3ed13161ee6d035fb69535126764"],"type":"block","studentids":["bmc0407","jsteve1"]}}
+
+
+{"T":"00000000abc00000000000000000000000000000000000000000000000000000","created": 1678730488,"miner":"Yours truly","nonce":"09e111c7e1e7acb6f8cac0bb2fc4c8bc2ae3baaab9165cc458e199cb903c17f8","note":"You better watch out, you better not cry - the best miner is here and I'm telling you why...","previd":"000000006b63d3f9de26768b685d49b75d43afb26e46afc8a8904458ea3b29d6","txids":["289dd639cd0b1655620a294ffb58dc27bed2e112686eee8385a4037f364c8d0e","e0a59e094e43f7dc3679a6f2a8a584e1808f096ecbc09ce4732dbcf031daf5c3"],"type":"block","studentids":"studentids":["bmc0407","jsteve1"]}
+
+
+
+
+
+
+
+
+
+{"T": "000001174A8000000000000000000000000000000000000000000000000000000","created": 1678734942,"miner": "Storks Protocol","nonce": "1ed76f165b3e6c50335d9e2bb99ed8bbf7262c52c4a78b7266d8105e8cd313cd","note": "The underdogs have arrived","previd": "00000000197d0f65502d8bbd732d37ca01f28571d1b5568fa5d261bb7d9aaf5b","txids": ["247ecaf7479fa31787f4c4a2e0885a04435432cdb1287b8e66f14ad5a40349e0","c5518c86878c14fdf3ae7147283fd8136d9aed4924b0028d9a586ff9709aed91"],"type": "block","studentids": ["bmc0407","jsteve1"]}
