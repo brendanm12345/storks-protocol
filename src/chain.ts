@@ -28,13 +28,12 @@ class ChainManager {
       await this.save()
     }
     logger.debug(`Chain manager initialized.`)
-    // HERE initialize new miner (worker thread)
-    // miner.sendNewWork()
   }
   async save() {
     await db.put('longestchain', [this.longestChainTip, this.longestChainHeight])
   }
   async onValidBlockArrival(block: Block) {
+    logger.info("valid block arrived")
     if (!block.valid) {
       throw new Error(`Received onValidBlockArrival() call for invalid block ${block.blockid}`)
     }
@@ -61,8 +60,6 @@ class ChainManager {
       await mempool.reorg(lca, shortFork, longFork)
       await this.save()
       // HERE send miner new work
-      // dont we just send it mempool? or do we just say miner.checkNewWork and that accesses the mempool?
-      // prob need chaintip as parameter here huh
       miner.sendNewWork()
     }
 
@@ -99,12 +96,14 @@ export class Chain {
     }
     const b2Parent = await b2.loadParent()
     if (b2Parent === null) {
-      throw new Error('Attempting to get forks between chains with no shared ancestor')
+      // new
+      return [await Block.makeGenesis(), new Chain([]), new Chain([])]
     }
     if (l1 === l2) {
       const b1Parent = await b1.loadParent()
       if (b1Parent === null) {
-        throw new Error('Attempting to get forks between chains with no shared ancestor')
+        // new
+        return [await Block.makeGenesis(), new Chain([]), new Chain([])]
       }
       const [lca, b1Fork, b2Fork] = await Chain.getForks(b1Parent, b2Parent)
 

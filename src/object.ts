@@ -2,8 +2,10 @@ export type ObjectId = string
 
 import level from 'level-ts'
 import { canonicalize } from 'json-canonicalize'
-import { ObjectTxOrBlock, ObjectType,
-         TransactionObjectType, BlockObjectType, AnnotatedError } from './message'
+import {
+  ObjectTxOrBlock, ObjectType,
+  TransactionObjectType, BlockObjectType, AnnotatedError
+} from './message'
 import { Transaction } from './transaction'
 import { Block } from './block'
 import { logger } from './logger'
@@ -74,7 +76,8 @@ class ObjectManager {
       }
     )(object)
   }
-  async retrieve(objectid: ObjectId, peer: Peer): Promise<ObjectType> {
+  // even if we reject in past it will be reevaluated for mempool txs
+  async retrieve(objectid: ObjectId, peer: Peer, mempoolTx = false): Promise<ObjectType> {
     logger.debug(`Retrieving object ${objectid}`)
     let object: ObjectType
     const deferred = new Deferred<ObjectType>()
@@ -87,9 +90,12 @@ class ObjectManager {
     try {
       object = await this.get(objectid)
       logger.debug(`Object ${objectid} was already in database`)
+      if (mempoolTx) {
+        await this.validate(object, peer)
+      }
       return object
     }
-    catch (e) {}
+    catch (e) { }
 
     logger.debug(`Object ${objectid} not in database. Requesting it from peer ${peer.peerAddr}.`)
     await peer.sendGetObject(objectid)

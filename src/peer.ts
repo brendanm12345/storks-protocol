@@ -259,9 +259,13 @@ export class Peer {
     }
     this.sendChainTip(chainManager.longestChainTip.blockid)
   }
+  // checking if our chain tip is at least as long as peer chain tip
   async onMessageChainTip(msg: ChainTipMessageType) {
     if (await objectManager.exists(msg.blockid)) {
-      return
+      const validBlock = (await Block.fromNetworkObject(await objectManager.get(msg.blockid))).valid
+      if (validBlock) {
+        return 
+      }
     }
     this.sendGetObject(msg.blockid)
   }
@@ -275,9 +279,9 @@ export class Peer {
   }
   async onMessageMempool(msg: MempoolMessageType) {
     for (const txid of msg.txids) {
-      objectManager.retrieve(txid, this).catch(() => {
+      objectManager.retrieve(txid, this, true).catch(() => {
         this.sendError(new AnnotatedError('UNFINDABLE_OBJECT', 'Could not find one of the objects in the mempool'))
-      }) // intentionally delayed
+      })
     }
   }
   async onMessageError(msg: ErrorMessageType) {

@@ -31,7 +31,7 @@ class Miner {
     template(x: ObjectId[], nonce: string) {
         const template =
         {
-            T: TARGET100X,
+            T: TARGET,
             created: Math.floor(new Date().getTime() / 1000),
             miner: 'Storks Protocol',
             nonce: nonce,
@@ -47,12 +47,6 @@ class Miner {
         return new Promise((resolve, reject) => {
             this.worker = new Worker('./src/mining/worker.ts',
                 { workerData: candidate, execArgv: /\.ts$/.test('./src/mining/worker.ts') ? ["--require", "ts-node/register"] : undefined, });
-            //const temp = new Worker('./worker.ts', { candidate })
-            // for now on later once
-            // (this.worker as any).on("message", (result: any) => {
-            //     console.log(`PoW satisfied with ${result}`);
-            //     resolve(result)
-            // });
             (this.worker as any).on("message", resolve);
             (this.worker as any).on('error', reject);
             (this.worker as any).on('exit', (code: number) => {

@@ -67,7 +67,7 @@ class MemPool {
     logger.debug(`Added transaction ${tx.txid} to mempool`)
     this.txs.push(tx)
     await this.save()
-    //NEW
+    // NEW
     miner.sendNewWork()
     // HERE send new work with new x bar
     return true

@@ -48,7 +48,7 @@ async function run() {
             
             while (true) {
                 const blockId = hash(canonicalize(workerData))
-                if (BigInt(`0x${blockId}`) <= BigInt(`0x${TARGET100X}`)) {
+                if (BigInt(`0x${blockId}`) <= BigInt(`0x${TARGET}`)) {
                     // if it satisfies
                     logger.info(hash(canonicalize(workerData)))
                     logger.info("GOT ONE")
